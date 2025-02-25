@@ -13,12 +13,15 @@ materials = {
     "Rocket silo" : 1
 }
 
+material_cache = {}
+
 # Function to convert quantity string to int
 def convert_quantity(quantity):
-    # If "k" is in the quantity, multiply by 1000
+    if not quantity:
+        return 0  # Return 0 if the quantity is empty or invalid
+    # If k is in the quantity, multiply by 1000
     if 'k' in quantity:
         return int(quantity.replace('k', '')) * 1000
-    # If there's no "k" return  integer value
     try:
         # Try to convert the quantity directly to an integer
         return int(quantity)
