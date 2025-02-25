@@ -19,7 +19,12 @@ def convert_quantity(quantity):
     if 'k' in quantity:
         return int(quantity.replace('k', '')) * 1000
     # If there's no "k" return  integer value
-    return int(quantity)
+    try:
+        # Try to convert the quantity directly to an integer
+        return int(quantity)
+    except ValueError:
+        # If conversion fails, return 0 or handle accordingly
+        return 0
 
 def get_materials(material_link, headers):
     # Fetch the wiki page
@@ -46,11 +51,13 @@ def get_materials(material_link, headers):
                 # If it's not, add it
                 materials[title] = quantity
 
-            print(f"Material: {title}, Link: {material_url}, Quantity: {quantity}")
+            #print(f"Material: {title}, Link: {material_url}, Quantity: {quantity}")
 
+            get_materials(material_url, headers)
 
     except Exception as e:
         print(f"Error fetching wiki page: {e}")
 
 if __name__ == "__main__":
     get_materials(origin_link, headers)
+    print(materials)
